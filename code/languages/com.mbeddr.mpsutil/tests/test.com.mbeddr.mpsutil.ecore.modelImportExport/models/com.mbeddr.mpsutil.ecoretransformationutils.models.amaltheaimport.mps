@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model ref="r:bd17aa99-cae3-4f8f-b608-063115997bfb(com.mbeddr.mpsutil.ecoretransformationutils.models.sampleamaltheamodel)">
+<model ref="r:d15013ff-3f14-4e57-ab5e-1a6a1ec264d9(com.mbeddr.mpsutil.ecoretransformationutils.models.amaltheaimport)">
   <persistence version="9" />
   <languages>
     <use id="ad8b5993-1cc2-49c0-b7a0-0283da231703" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel" version="0" />
@@ -9,6 +9,9 @@
     <language id="ad8b5993-1cc2-49c0-b7a0-0283da231703" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel">
       <concept id="2205398201200682488" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.CallSequence" flags="ng" index="2Ggg02">
         <child id="2205398201200682685" name="calls" index="2Gggd7" />
+      </concept>
+      <concept id="2205398201200682480" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.AbstractProcess" flags="ng" index="2Ggg0a">
+        <property id="2205398201200682481" name="priority" index="2Ggg0b" />
       </concept>
       <concept id="2205398201200682486" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.CallGraph" flags="ng" index="2Ggg0c">
         <child id="2205398201200682809" name="graphEntries" index="2Gggb3" />
@@ -32,6 +35,7 @@
       </concept>
       <concept id="2205398201200682527" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.Task" flags="ng" index="2Gggf_">
         <property id="2205398201200682530" name="multipleTaskActivationLimit" index="2Gggfo" />
+        <property id="2205398201200682528" name="osekTaskGroup" index="2Gggfq" />
         <property id="2205398201200682529" name="preemption" index="2Gggfr" />
       </concept>
       <concept id="2205398201200682524" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.TaskRunnableCall" flags="ng" index="2GggfA">
@@ -42,6 +46,7 @@
         <property id="2205398201200681827" name="value" index="2Gggqp" />
       </concept>
       <concept id="2205398201200681812" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.IReferable" flags="ng" index="2GggqI">
+        <property id="2205398201200681814" name="uniqueName" index="2GggqG" />
         <property id="2205398201200681813" name="name" index="2GggqJ" />
       </concept>
       <concept id="2205398201200681805" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.Amalthea" flags="ng" index="2GggqR">
@@ -50,41 +55,49 @@
       </concept>
     </language>
   </registry>
-  <node concept="2GggqR" id="1Ur9vEMSxk0">
-    <node concept="2Ggg0k" id="1Ur9vEMSxk1" role="2GggRP">
-      <node concept="2Gggf4" id="6TRxMBim5F3" role="2Gggbo">
-        <property role="2GggqJ" value="RUnnable_2_2" />
-        <node concept="2GggeC" id="6TRxMBim5F8" role="2Gggc8">
-          <node concept="2Gggqo" id="6TRxMBim5Fc" role="2Ggg9u">
-            <property role="2Gggqp" value="12000" />
-          </node>
-        </node>
+  <node concept="2GggqR" id="11$Qwp7VlrM">
+    <node concept="2Ggg0k" id="11$Qwp7VlrN" role="2GggRP">
+      <node concept="2Gggf_" id="11$Qwp7VlrO" role="2Gggbr">
+        <property role="2Gggfq" value="0" />
+        <property role="2Gggfr" value="_undefined_" />
+        <property role="2Gggfo" value="1" />
       </node>
-      <node concept="2Gggf4" id="6TRxMBim5Ex" role="2Gggbo">
+    </node>
+    <node concept="2Ggg4s" id="11$Qwp7VlrQ" role="2GggRE">
+      <node concept="2Ggg4f" id="11$Qwp7VlrR" role="2Gggai" />
+    </node>
+  </node>
+  <node concept="2GggqR" id="11$Qwp7VXFl">
+    <node concept="2Ggg0k" id="11$Qwp7VXFm" role="2GggRP">
+      <node concept="2Gggf4" id="11$Qwp7VXGG" role="2Gggbo">
         <property role="2GggqJ" value="Runnable_1_1" />
-        <node concept="2GggeC" id="6TRxMBim5EI" role="2Gggc8">
-          <node concept="2Gggqo" id="6TRxMBim5EM" role="2Ggg9u">
+        <node concept="2GggeC" id="11$Qwp7VXGK" role="2Gggc8">
+          <node concept="2Gggqo" id="11$Qwp7VXGP" role="2Ggg9u">
             <property role="2Gggqp" value="15000" />
           </node>
         </node>
       </node>
-      <node concept="2Gggf_" id="1Ur9vEMSxk3" role="2Gggbr">
-        <property role="2GggqJ" value="task_1" />
+      <node concept="2Gggf_" id="11$Qwp7VXFn" role="2Gggbr">
+        <property role="2Gggfq" value="0" />
+        <property role="2Gggfr" value="_undefined_" />
         <property role="2Gggfo" value="1" />
-        <property role="2Gggfr" value="2" />
-        <node concept="2Ggg0c" id="6TRxMBim5Ff" role="2GggbX">
-          <node concept="2Ggg02" id="6TRxMBim5Fh" role="2Gggb3">
-            <node concept="2GggfA" id="6V1JHMT22$X" role="2Gggd7">
-              <ref role="2Ggg9r" node="6TRxMBim5F3" />
-              <ref role="2Ggg9_" node="6TRxMBim5Ex" />
+        <property role="2GggqJ" value="task_1" />
+        <property role="2GggqG" value="task_1?type=Task" />
+        <property role="2Ggg0b" value="0" />
+        <node concept="2Ggg0c" id="11$Qwp7VXGw" role="2GggbX">
+          <node concept="2Ggg02" id="11$Qwp7VXG$" role="2Gggb3">
+            <node concept="2GggfA" id="11$Qwp7VXGD" role="2Gggd7">
+              <ref role="2Ggg9_" node="11$Qwp7VXGG" />
+              <ref role="2Ggg9r" node="11$Qwp7VXGG" />
             </node>
           </node>
         </node>
       </node>
     </node>
-    <node concept="2Ggg4s" id="4is5PX58MKK" role="2GggRE">
-      <node concept="2Ggg4f" id="4is5PX58MKM" role="2Gggai">
+    <node concept="2Ggg4s" id="11$Qwp7VXFp" role="2GggRE">
+      <node concept="2Ggg4f" id="11$Qwp7VXFq" role="2Gggai">
         <property role="2GggqJ" value="ecu_1" />
+        <property role="2GggqG" value="ecu_1?type=ECUType" />
       </node>
     </node>
   </node>
