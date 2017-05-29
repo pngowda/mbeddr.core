@@ -43,6 +43,7 @@
     <import index="zf81" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.net(JDK/)" />
     <import index="u5dg" ref="822a7acd-f487-45f5-bbb9-1ce595a1705f/java:org.eclipse.xtext(com.mbeddr.mpsutil.ecore.stubs/)" />
     <import index="1qo3" ref="b0f8641f-bd77-4421-8425-30d9088a82f7/java:org.apache.commons.lang3.tuple(org.apache.commons/)" />
+    <import index="xlxw" ref="6354ebe7-c22a-4a0f-ac54-50b52ab9b065/java:java.math(JDK/)" />
   </imports>
   <registry>
     <language id="f3061a53-9226-4cc5-a443-f952ceaf5816" name="jetbrains.mps.baseLanguage">
@@ -6423,6 +6424,45 @@
             </node>
           </node>
         </node>
+        <node concept="3clFbJ" id="5IB1dTJjvbJ" role="3cqZAp">
+          <node concept="3clFbS" id="5IB1dTJjvbK" role="3clFbx">
+            <node concept="3cpWs6" id="5IB1dTJkgN5" role="3cqZAp">
+              <node concept="2YIFZM" id="5IB1dTJk6_4" role="3cqZAk">
+                <ref role="1Pybhc" to="xlxw:~BigInteger" resolve="BigInteger" />
+                <ref role="37wK5l" to="xlxw:~BigInteger.valueOf(long):java.math.BigInteger" resolve="valueOf" />
+                <node concept="2YIFZM" id="5IB1dTJkqjh" role="37wK5m">
+                  <ref role="37wK5l" to="wyt6:~Long.valueOf(java.lang.String):java.lang.Long" resolve="valueOf" />
+                  <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
+                  <node concept="37vLTw" id="5IB1dTJksdY" role="37wK5m">
+                    <ref role="3cqZAo" node="4XUUgAlmTzi" resolve="value" />
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node concept="2OqwBi" id="5IB1dTJjvbO" role="3clFbw">
+            <node concept="2OqwBi" id="5IB1dTJjvbP" role="2Oq$k0">
+              <node concept="2OqwBi" id="5IB1dTJjvbQ" role="2Oq$k0">
+                <node concept="10M0yZ" id="5IB1dTJjvbR" role="2Oq$k0">
+                  <ref role="3cqZAo" to="iuoz:~EcorePackage.eINSTANCE" resolve="eINSTANCE" />
+                  <ref role="1PxDUh" to="iuoz:~EcorePackage" resolve="EcorePackage" />
+                </node>
+                <node concept="liA8E" id="5IB1dTJjvbS" role="2OqNvi">
+                  <ref role="37wK5l" to="iuoz:~EcorePackage.getEBigInteger():org.eclipse.emf.ecore.EDataType" resolve="getEBigInteger" />
+                </node>
+              </node>
+              <node concept="liA8E" id="5IB1dTJjvbT" role="2OqNvi">
+                <ref role="37wK5l" to="iuoz:~ENamedElement.getName():java.lang.String" resolve="getName" />
+              </node>
+            </node>
+            <node concept="liA8E" id="5IB1dTJjvbU" role="2OqNvi">
+              <ref role="37wK5l" to="wyt6:~String.equals(java.lang.Object):boolean" resolve="equals" />
+              <node concept="37vLTw" id="5IB1dTJjvbV" role="37wK5m">
+                <ref role="3cqZAo" node="4is5PX57Wp$" resolve="attrType" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3clFbJ" id="6V1JHMT2r6C" role="3cqZAp">
           <node concept="3clFbS" id="6V1JHMT2r6E" role="3clFbx">
             <node concept="3SKdUt" id="3pqRb3S5aLo" role="3cqZAp">
@@ -6501,7 +6541,7 @@
           </node>
         </node>
         <node concept="3cpWs6" id="6TRxMBi$GuQ" role="3cqZAp">
-          <node concept="10Nm6u" id="6TRxMBi$G_U" role="3cqZAk" />
+          <node concept="10Nm6u" id="5IB1dTJjrSs" role="3cqZAk" />
         </node>
       </node>
       <node concept="3Tm6S6" id="4XUUgAlmH8k" role="1B3o_S" />
