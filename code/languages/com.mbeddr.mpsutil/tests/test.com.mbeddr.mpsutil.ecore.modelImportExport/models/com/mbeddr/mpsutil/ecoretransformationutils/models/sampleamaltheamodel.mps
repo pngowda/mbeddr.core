@@ -62,12 +62,14 @@
         <property id="2205398201200682224" name="type" index="2Ggg4a" />
         <child id="2205398201200682730" name="frequency" index="2Gggcg" />
       </concept>
+      <concept id="2205398201200682221" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.Memory" flags="ng" index="2Ggg4n" />
       <concept id="2205398201200682214" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.HWModel" flags="ng" index="2Ggg4s">
         <child id="2205398201200682858" name="coreTypes" index="2Gggag" />
         <child id="2205398201200682862" name="system" index="2Gggak" />
       </concept>
       <concept id="2205398201200682215" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.ComplexNode" flags="ng" index="2Ggg4t">
         <child id="2205398201200682882" name="prescaler" index="2Ggg9S" />
+        <child id="2205398201200682883" name="memories" index="2Ggg9T" />
         <child id="2205398201200682881" name="quartzes" index="2Ggg9V" />
       </concept>
       <concept id="2205398201200682578" name="com.mbeddr.mpsutil.ecoretransformation.amaltheametamodel.structure.RunnableInstructions" flags="ng" index="2GggeC">
@@ -168,6 +170,7 @@
       </node>
       <node concept="2Ggg4i" id="3sChTmETx2Z" role="2Gggak">
         <node concept="2Ggg4j" id="7yTwbtrV7Rv" role="2Gggaq">
+          <node concept="2Ggg4n" id="2jS38qv0q3U" role="2Ggg9T" />
           <node concept="2Ggg4g" id="7yTwbtrV7Rw" role="2Ggg9b">
             <node concept="2Ggg4l" id="7yTwbtrV7R_" role="2Ggg9V">
               <property role="2GggqJ" value="Quartz" />

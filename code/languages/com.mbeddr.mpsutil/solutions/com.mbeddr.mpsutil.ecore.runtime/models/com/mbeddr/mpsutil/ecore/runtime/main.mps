@@ -6201,6 +6201,105 @@
                 </node>
                 <node concept="3clFbJ" id="4XUUgAloYIo" role="3cqZAp">
                   <node concept="3clFbS" id="4XUUgAloYIq" role="3clFbx">
+                    <node concept="3clFbF" id="5IB1dTJo0Lq" role="3cqZAp">
+                      <node concept="2OqwBi" id="5IB1dTJo0Ln" role="3clFbG">
+                        <node concept="10M0yZ" id="5IB1dTJo0Lo" role="2Oq$k0">
+                          <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+                          <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+                        </node>
+                        <node concept="liA8E" id="5IB1dTJo0Lp" role="2OqNvi">
+                          <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String):void" resolve="println" />
+                          <node concept="3cpWs3" id="5IB1dTJoxyy" role="37wK5m">
+                            <node concept="3cpWs3" id="5IB1dTJovtq" role="3uHU7B">
+                              <node concept="3cpWs3" id="5IB1dTJopVt" role="3uHU7B">
+                                <node concept="3cpWs3" id="5IB1dTJoo4H" role="3uHU7B">
+                                  <node concept="3cpWs3" id="5IB1dTJojil" role="3uHU7B">
+                                    <node concept="3cpWs3" id="5IB1dTJogY2" role="3uHU7B">
+                                      <node concept="3cpWs3" id="5IB1dTJoczv" role="3uHU7B">
+                                        <node concept="3cpWs3" id="5IB1dTJob6N" role="3uHU7B">
+                                          <node concept="3cpWs3" id="5IB1dTJo4Q_" role="3uHU7B">
+                                            <node concept="Xl_RD" id="5IB1dTJo2Kt" role="3uHU7B">
+                                              <property role="Xl_RC" value="Attempting to set value of " />
+                                            </node>
+                                            <node concept="37vLTw" id="5IB1dTJqD12" role="3uHU7w">
+                                              <ref role="3cqZAo" node="4XUUgAlk$G2" resolve="propertyVal" />
+                                            </node>
+                                          </node>
+                                          <node concept="Xl_RD" id="5IB1dTJobIH" role="3uHU7w">
+                                            <property role="Xl_RC" value=" with value " />
+                                          </node>
+                                        </node>
+                                        <node concept="2OqwBi" id="5IB1dTJof3J" role="3uHU7w">
+                                          <node concept="2OqwBi" id="5IB1dTJodKj" role="2Oq$k0">
+                                            <node concept="37vLTw" id="5IB1dTJrjku" role="2Oq$k0">
+                                              <ref role="3cqZAo" node="4XUUgAlltfR" resolve="attribute" />
+                                            </node>
+                                            <node concept="liA8E" id="5IB1dTJoexS" role="2OqNvi">
+                                              <ref role="37wK5l" to="iuoz:~EObject.eClass():org.eclipse.emf.ecore.EClass" resolve="eClass" />
+                                            </node>
+                                          </node>
+                                          <node concept="liA8E" id="5IB1dTJofMO" role="2OqNvi">
+                                            <ref role="37wK5l" to="iuoz:~ENamedElement.getName():java.lang.String" resolve="getName" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                      <node concept="Xl_RD" id="5IB1dTJohIC" role="3uHU7w">
+                                        <property role="Xl_RC" value=" ... " />
+                                      </node>
+                                    </node>
+                                    <node concept="2OqwBi" id="5IB1dTJomoD" role="3uHU7w">
+                                      <node concept="2OqwBi" id="5IB1dTJokBf" role="2Oq$k0">
+                                        <node concept="37vLTw" id="6lHDnAbTqBd" role="2Oq$k0">
+                                          <ref role="3cqZAo" node="4XUUgAlltfR" resolve="attribute" />
+                                        </node>
+                                        <node concept="liA8E" id="5IB1dTJolQ7" role="2OqNvi">
+                                          <ref role="37wK5l" to="iuoz:~EObject.eClass():org.eclipse.emf.ecore.EClass" resolve="eClass" />
+                                        </node>
+                                      </node>
+                                      <node concept="liA8E" id="5IB1dTJonwY" role="2OqNvi">
+                                        <ref role="37wK5l" to="wyt6:~Object.toString():java.lang.String" resolve="toString" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node concept="Xl_RD" id="5IB1dTJoobW" role="3uHU7w">
+                                    <property role="Xl_RC" value="...." />
+                                  </node>
+                                </node>
+                                <node concept="2OqwBi" id="5IB1dTJot8g" role="3uHU7w">
+                                  <node concept="2OqwBi" id="5IB1dTJorlg" role="2Oq$k0">
+                                    <node concept="37vLTw" id="6lHDnAbTr03" role="2Oq$k0">
+                                      <ref role="3cqZAo" node="4XUUgAlltfR" resolve="attribute" />
+                                    </node>
+                                    <node concept="liA8E" id="5IB1dTJos$V" role="2OqNvi">
+                                      <ref role="37wK5l" to="iuoz:~EObject.eClass():org.eclipse.emf.ecore.EClass" resolve="eClass" />
+                                    </node>
+                                  </node>
+                                  <node concept="liA8E" id="5IB1dTJouhL" role="2OqNvi">
+                                    <ref role="37wK5l" to="iuoz:~EClassifier.getInstanceClassName():java.lang.String" resolve="getInstanceClassName" />
+                                  </node>
+                                </node>
+                              </node>
+                              <node concept="Xl_RD" id="5IB1dTJowoC" role="3uHU7w">
+                                <property role="Xl_RC" value="...." />
+                              </node>
+                            </node>
+                            <node concept="2OqwBi" id="5IB1dTJo_BM" role="3uHU7w">
+                              <node concept="2OqwBi" id="5IB1dTJozND" role="2Oq$k0">
+                                <node concept="37vLTw" id="6lHDnAbTroT" role="2Oq$k0">
+                                  <ref role="3cqZAo" node="4XUUgAlltfR" resolve="attribute" />
+                                </node>
+                                <node concept="liA8E" id="5IB1dTJo_3O" role="2OqNvi">
+                                  <ref role="37wK5l" to="iuoz:~EObject.eClass():org.eclipse.emf.ecore.EClass" resolve="eClass" />
+                                </node>
+                              </node>
+                              <node concept="liA8E" id="5IB1dTJoALW" role="2OqNvi">
+                                <ref role="37wK5l" to="iuoz:~EClassifier.getInstanceTypeName():java.lang.String" resolve="getInstanceTypeName" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
                     <node concept="3clFbF" id="4XUUgAllv$X" role="3cqZAp">
                       <node concept="2OqwBi" id="4XUUgAllvLp" role="3clFbG">
                         <node concept="37vLTw" id="4XUUgAllv$V" role="2Oq$k0">
@@ -6427,13 +6526,13 @@
         <node concept="3clFbJ" id="5IB1dTJjvbJ" role="3cqZAp">
           <node concept="3clFbS" id="5IB1dTJjvbK" role="3clFbx">
             <node concept="3cpWs6" id="5IB1dTJkgN5" role="3cqZAp">
-              <node concept="2YIFZM" id="5IB1dTJk6_4" role="3cqZAk">
-                <ref role="1Pybhc" to="xlxw:~BigInteger" resolve="BigInteger" />
+              <node concept="2YIFZM" id="5IB1dTJnPBP" role="3cqZAk">
                 <ref role="37wK5l" to="xlxw:~BigInteger.valueOf(long):java.math.BigInteger" resolve="valueOf" />
-                <node concept="2YIFZM" id="5IB1dTJkqjh" role="37wK5m">
+                <ref role="1Pybhc" to="xlxw:~BigInteger" resolve="BigInteger" />
+                <node concept="2YIFZM" id="5IB1dTJnTlh" role="37wK5m">
                   <ref role="37wK5l" to="wyt6:~Long.valueOf(java.lang.String):java.lang.Long" resolve="valueOf" />
                   <ref role="1Pybhc" to="wyt6:~Long" resolve="Long" />
-                  <node concept="37vLTw" id="5IB1dTJksdY" role="37wK5m">
+                  <node concept="37vLTw" id="5IB1dTJnVfW" role="37wK5m">
                     <ref role="3cqZAo" node="4XUUgAlmTzi" resolve="value" />
                   </node>
                 </node>
@@ -6541,7 +6640,9 @@
           </node>
         </node>
         <node concept="3cpWs6" id="6TRxMBi$GuQ" role="3cqZAp">
-          <node concept="10Nm6u" id="5IB1dTJjrSs" role="3cqZAk" />
+          <node concept="37vLTw" id="5IB1dTJnXbb" role="3cqZAk">
+            <ref role="3cqZAo" node="4XUUgAlmTzi" resolve="value" />
+          </node>
         </node>
       </node>
       <node concept="3Tm6S6" id="4XUUgAlmH8k" role="1B3o_S" />
