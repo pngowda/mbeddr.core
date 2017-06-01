@@ -1457,6 +1457,9 @@
     <property role="3GE5qa" value="valueDebugger" />
     <property role="TrG5h" value="IValueDebuggable" />
     <property role="EcuMT" value="651821299954673486" />
+    <node concept="asaX9" id="7MsRQPEDu_P" role="lGtFl">
+      <property role="YLQ7P" value="Use com.mbeddr.core.valuedebug language" />
+    </node>
   </node>
   <node concept="1TIwiD" id="$bJ0jgQ80g">
     <property role="3GE5qa" value="valueDebugger" />
@@ -1502,6 +1505,9 @@
       <property role="TrG5h" value="value" />
       <property role="IQ2nx" value="773573539318576462" />
       <ref role="AX2Wp" to="tpck:fKAOsGN" resolve="string" />
+    </node>
+    <node concept="asaX9" id="7MsRQPEDu_H" role="lGtFl">
+      <property role="YLQ7P" value="Use com.mbeddr.core.valuedebug language" />
     </node>
   </node>
   <node concept="PlHQZ" id="7NyyyjNt9Bq">
