@@ -3780,6 +3780,12 @@
             <ref role="3bR37D" to="90a9:31bAEZ0srt5" resolve="org.apache.commons" />
           </node>
         </node>
+        <node concept="1SiIV0" id="7MsRQPEA2gP" role="3bR37C">
+          <node concept="3bR9La" id="7MsRQPEA2gQ" role="1SiIV1">
+            <property role="3bR36h" value="false" />
+            <ref role="3bR37D" to="ffeo:7Kfy9QB6L4x" resolve="jetbrains.mps.lang.constraints" />
+          </node>
+        </node>
       </node>
       <node concept="1E1JtA" id="tZiUABOqlz" role="2G$12L">
         <property role="BnDLt" value="true" />
