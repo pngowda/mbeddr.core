@@ -11949,6 +11949,36 @@
           </node>
         </node>
       </node>
+      <node concept="1E1JtD" id="7MsRQPEDWfa" role="2G$12L">
+        <property role="BnDLt" value="true" />
+        <property role="TrG5h" value="com.mbeddr.core.valuedebug" />
+        <property role="3LESm3" value="3109a66c-3604-4550-8dde-7350ef682bd7" />
+        <property role="2GAjPV" value="false" />
+        <node concept="398BVA" id="7MsRQPEDXoO" role="3LF7KH">
+          <ref role="398BVh" node="$bJ0jguQbM" resolve="mbeddr.core" />
+          <node concept="2Ry0Ak" id="7MsRQPEDYwJ" role="iGT6I">
+            <property role="2Ry0Am" value="languages" />
+            <node concept="2Ry0Ak" id="7MsRQPEE0Ku" role="2Ry0An">
+              <property role="2Ry0Am" value="com.mbeddr.core.valuedebug" />
+              <node concept="2Ry0Ak" id="7MsRQPEE30d" role="2Ry0An">
+                <property role="2Ry0Am" value="com.mbeddr.core.valuedebug.mpl" />
+              </node>
+            </node>
+          </node>
+        </node>
+        <node concept="1SiIV0" id="7MsRQPEE484" role="3bR37C">
+          <node concept="3bR9La" id="7MsRQPEE485" role="1SiIV1">
+            <property role="3bR36h" value="false" />
+            <ref role="3bR37D" node="$bJ0jguQfr" resolve="com.mbeddr.core.base" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="7MsRQPEE486" role="3bR37C">
+          <node concept="3bR9La" id="7MsRQPEE487" role="1SiIV1">
+            <property role="3bR36h" value="false" />
+            <ref role="3bR37D" to="ffeo:1TaHNgiIbIZ" resolve="MPS.Editor" />
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="2G$12M" id="7Nsh5Tc2mTg" role="3989C9">
       <property role="TrG5h" value="com.mbeddr.mpsutil.filepicker" />
