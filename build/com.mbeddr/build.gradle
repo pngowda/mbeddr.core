@@ -29,7 +29,6 @@ if (project.hasProperty("mbeddrVersion")) {
             ext.mbeddrBuild = project.getProperty('mbeddrBuild')
         } else {
             //ext.mbeddrBuild = GitBasedVersioning.getGitBranch()
-			
 			ext.mbeddrBuild="${project.ext['branch']}".replace("/", "-")
 			println "branch name " + mbeddrBuild
         }
