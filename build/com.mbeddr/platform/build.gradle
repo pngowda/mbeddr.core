@@ -16,9 +16,32 @@ if (project.skipResolveMps) {
     }
 }
 
+ext.dependencyRepositories = [
+        'https://projects.itemis.de/nexus/content/repositories/de.itemis.mps.build'
+]
 
-task build_allScripts(type: BuildLanguages, dependsOn: resolve_mps) {
+configurations {
+    mpsArtifacts
+}
+
+dependencies {
+	mpsArtifacts "de.itemis.mps:build:$mpsBuildPluginNumber"
+}
+
+task resolveMpsArtifacts() {
+    doLast {
+        copy {
+            from {
+                    configurations.mpsArtifacts.resolve().collect { zipTree(it) }
+                 }
+            into artifactsDir
+        }
+    }
+}
+
+task build_allScripts(type: ExecuteMPSBuildLanguages, dependsOn: [resolve_mps, resolveMpsArtifacts]) {
     script rootProject.file('build/com.mbeddr.allScripts/build.xml')
+	cmdargs scriptArgs()
 }
 
 task copy_allScripts(type: Copy, dependsOn: build_allScripts) {
@@ -35,8 +58,9 @@ task publish_allScripts(type: Zip, dependsOn: build_allScripts) {
 }
 
 
-task build_sl_all(type: BuildLanguages, dependsOn: copy_allScripts) {
+task build_sl_all(type: ExecuteMPSBuildLanguages, dependsOn: copy_allScripts) {
     script scriptFile('sl-all/build.xml')
+	cmdargs scriptArgs()
 }
 
 task copy_sl_all_nativelibs(type: Copy, dependsOn: build_sl_all) {
@@ -54,16 +78,20 @@ task install_sl_all_nativelibs(type: Copy, dependsOn: build_sl_all) {
 
 
 
-task build_platform(type: BuildLanguages, dependsOn: copy_sl_all_nativelibs) {
+task build_platform(type: ExecuteMPSBuildLanguages, dependsOn: copy_sl_all_nativelibs) {
     script scriptFile('com.mbeddr.platform/build.xml')
+	cmdargs scriptArgs()
 }
 
-task test_mbeddr_platform(type: TestLanguages, dependsOn: build_platform) {
+task test_mbeddr_platform(type: ExecuteMPSTestLanguages, dependsOn: build_platform) {
     script script_test_mbeddrPlatform
+	cmdargs scriptArgs()
+	
 }
 
-task build_platform_distribution(type: BuildLanguages, dependsOn: [build_platform, test_mbeddr_platform]) {
+task build_platform_distribution(type: ExecuteMPSBuildLanguages, dependsOn: [build_platform, test_mbeddr_platform]) {
     script scriptFile('com.mbeddr.platform/build-distribution.xml')
+	cmdargs scriptArgs()
 
     // Support incremental build
     inputs.file(script)

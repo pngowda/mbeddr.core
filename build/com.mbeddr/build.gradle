@@ -9,6 +9,8 @@ if (project.hasProperty("MPS_Installation")) {
 ext.mbeddrMajor = "1"
 ext.mbeddrMinor = "0"
 
+ext.mpsBuildPluginNumber = '1.0'
+
 if (project.hasProperty("mbeddrVersion")) {
     ext.mbeddrBuildNumber = project.getProperty('mbeddrVersion')
 } else {
@@ -28,9 +30,7 @@ if (project.hasProperty("mbeddrVersion")) {
         if (project.hasProperty('mbeddrBuild')) {
             ext.mbeddrBuild = project.getProperty('mbeddrBuild')
         } else {
-            //ext.mbeddrBuild = GitBasedVersioning.getGitBranch()
-            ext.mbeddrBuild="${project.ext['branch']}".replace("/", "-")
-	    println "Git Branch Name:" + mbeddrBuild
+            ext.mbeddrBuild = GitBasedVersioning.getGitBranch()
         }
 
         if (project.hasProperty("mbeddrBuildCounter")) {
@@ -80,7 +80,7 @@ String minorVersion = '-Dminor.version=' + mbeddrMinor
 ext.mbeddr_home = ['-Dmbeddr.github.core.home=' + file(rootProject.projectDir.absolutePath).getAbsolutePath(), minorVersion, majorVersion, buildVersion]
 ext.slall_home = ['-Dsl-all.home=' + file(rootProject.projectDir.absolutePath + '/code/plugins/sl-all').getAbsolutePath(), minorVersion, majorVersion, buildVersion]
 ext.dependsOnMPS_scriptArgs = [mps_home, build_dir, artifacts_root]
-ext.dependsOnMbeddr_scriptArgs = [*dependsOnMPS_scriptArgs, *mbeddr_home, *slall_home]
+ext.scriptArgs = [*dependsOnMPS_scriptArgs, *mbeddr_home, *slall_home]
 
 // path locations
 ext.mbeddrScripts_basePath = file(ant.properties['mbeddr.github.core.home'] + "/build").getAbsolutePath()
@@ -117,6 +117,10 @@ File scriptFile(String relativePath) {
     new File("$rootDir/scripts/$relativePath")
 }
 
+List scriptArgs(){
+	ext.scriptArgs
+}
+
 private static void configureRepositories(Project project) {
     project.ext.repository = project.mbeddrBuildNumber.endsWith('-SNAPSHOT') ? project.snapshotRepository : project.releaseRepository
 
@@ -143,6 +147,15 @@ private static void configureRepositories(Project project) {
                         username project.nexusUsername
                         password project.nexusPassword
                     }
+                }
+            }
+        }
+        maven {
+            url 'https://projects.itemis.de/nexus/content/repositories/de.itemis.mps.build'
+            if (project.hasProperty('nexusUsername')) {
+                credentials {
+                    username project.nexusUsername
+                    password project.nexusPassword
                 }
             }
         }
