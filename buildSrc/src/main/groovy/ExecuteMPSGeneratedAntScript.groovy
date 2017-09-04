@@ -39,6 +39,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         }
         FileCollection files = getProject().files();
         for (f in resolvedInputPath ) {
+            println "files "+ f
             files = files.plus(getProject().fileTree(new File(f)));
         }
         return files;
@@ -64,11 +65,13 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         ProjectHelper.configureProject(antProject, ioFilePath)
         propertyMap = antProject.getProperties()
         propertyMap.each { keyA, valueA -> writePropMap.put("\${" + "$keyA" + "}", "$valueA") }
+        writePropMap.each { keyB, valueB -> println "$keyB --> $valueB" }
+
     }
 
     def parseAntBuildXmlFileInput(ioFilePath){
         def parsedProjectXml = new XmlSlurper().parse(ioFilePath)
-        parsedProjectXml.target.input.file.each { file -> inputFileList.add(file.@path) }
+        parsedProjectXml.input.file.each { file -> inputFileList.add(file.@path) }
         inputFileList.each {
             if (it.toString().contains("\$")) {
                 def toResolveString = it.toString().split("/").getAt(0)
@@ -80,7 +83,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
 
     def parseAntBuildXmlFileOutput(ioFilePath){
         def parsedProjectXml = new XmlSlurper().parse(ioFilePath)
-        parsedProjectXml.target.output.file.each { file -> outputFileList.add(file.@path) }
+        parsedProjectXml.output.file.each { file -> outputFileList.add(file.@path) }
         outputFileList.each {
             if (it.toString().contains("\$")) {
                 def toResolveString = it.toString().split("/").getAt(0)

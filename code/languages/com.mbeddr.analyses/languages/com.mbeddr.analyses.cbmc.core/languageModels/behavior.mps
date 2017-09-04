@@ -57,6 +57,7 @@
       <concept id="1137021947720" name="jetbrains.mps.baseLanguage.structure.ConceptFunction" flags="in" index="2VMwT0">
         <child id="1137022507850" name="body" index="2VODD2" />
       </concept>
+      <concept id="1070534436861" name="jetbrains.mps.baseLanguage.structure.FloatType" flags="in" index="10OMs4" />
       <concept id="1068431474542" name="jetbrains.mps.baseLanguage.structure.VariableDeclaration" flags="ng" index="33uBYm">
         <child id="1068431790190" name="initializer" index="33vP2m" />
       </concept>
@@ -83,6 +84,9 @@
       <concept id="1068580123137" name="jetbrains.mps.baseLanguage.structure.BooleanConstant" flags="nn" index="3clFbT">
         <property id="1068580123138" name="value" index="3clFbU" />
       </concept>
+      <concept id="1068580320020" name="jetbrains.mps.baseLanguage.structure.IntegerConstant" flags="nn" index="3cmrfG">
+        <property id="1068580320021" name="value" index="3cmrfH" />
+      </concept>
       <concept id="1068581242878" name="jetbrains.mps.baseLanguage.structure.ReturnStatement" flags="nn" index="3cpWs6">
         <child id="1068581517676" name="expression" index="3cqZAk" />
       </concept>
@@ -90,6 +94,7 @@
         <child id="1068581242865" name="localVariableDeclaration" index="3cpWs9" />
       </concept>
       <concept id="1068581242863" name="jetbrains.mps.baseLanguage.structure.LocalVariableDeclaration" flags="nr" index="3cpWsn" />
+      <concept id="1068581517677" name="jetbrains.mps.baseLanguage.structure.VoidType" flags="in" index="3cqZAl" />
       <concept id="1204053956946" name="jetbrains.mps.baseLanguage.structure.IMethodCall" flags="ng" index="1ndlxa">
         <reference id="1068499141037" name="baseMethodDeclaration" index="37wK5l" />
         <child id="1068499141038" name="actualArgument" index="37wK5m" />
@@ -142,6 +147,22 @@
   <node concept="13h7C7" id="3x0R1LJfFbX">
     <property role="3GE5qa" value="configuration.cbmc" />
     <ref role="13h7C2" to="hj5x:3x0R1LJfFaN" resolve="AssertionsCBMCAnalysis" />
+    <node concept="13i0hz" id="7x1S0Lw4kRr" role="13h7CS">
+      <property role="TrG5h" value="dummy" />
+      <node concept="3Tm1VV" id="7x1S0Lw4kRs" role="1B3o_S" />
+      <node concept="3cqZAl" id="7x1S0Lw4kZP" role="3clF45" />
+      <node concept="3clFbS" id="7x1S0Lw4kRu" role="3clF47">
+        <node concept="3cpWs8" id="7x1S0Lw4l0a" role="3cqZAp">
+          <node concept="3cpWsn" id="7x1S0Lw4l0d" role="3cpWs9">
+            <property role="TrG5h" value="f1" />
+            <node concept="10OMs4" id="7x1S0Lw4l09" role="1tU5fm" />
+            <node concept="3cmrfG" id="7x1S0Lw4llO" role="33vP2m">
+              <property role="3cmrfH" value="1" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="13i0hz" id="3x0R1LJfFbY" role="13h7CS">
       <property role="TrG5h" value="getAnalyzedNode" />
       <property role="13i0it" value="false" />
