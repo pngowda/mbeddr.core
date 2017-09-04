@@ -17,7 +17,9 @@ configurations {
 
 ext.dependencyRepositories = [
         'https://projects.itemis.de/nexus/content/repositories/mbeddr',
-        'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots' ]
+        'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
+        'https://projects.itemis.de/nexus/content/repositories/de.itemis.mps.build'
+]
 
 dependencies {
     junitAnt 'junit:junit:4.12'
@@ -28,6 +30,7 @@ dependencies {
         transitive = false
     }
     mpsArtifacts "com.mbeddr:platform:$mbeddrBuildNumber"
+	mpsArtifacts "de.itemis.mps:build:$mpsBuildPluginNumber"
 }
 
 
@@ -45,8 +48,9 @@ task resolveMpsArtifacts() {
 
 
 //move spawner into mbeddr script
-task build_spawner(type: BuildLanguages, dependsOn: ':build:com.mbeddr:platform:copy_allScripts') {
+task build_spawner(type: ExecuteMPSBuildLanguages, dependsOn: ':build:com.mbeddr:platform:copy_allScripts') {
     script scriptFile('com.mbeddr.build/spawner.xml')
+	cmdargs scriptArgs()
 }
 
 task copy_spawner(type: Copy, dependsOn: build_spawner) {
@@ -90,8 +94,9 @@ if (ciBuild) {
     mbeddrDependencies = [copy_spawner, ':build:com.mbeddr:platform:build_platform']
 }
 
-task build_mbeddr(type: BuildLanguages, dependsOn: mbeddrDependencies) {
+task build_mbeddr(type: ExecuteMPSBuildLanguages, dependsOn: mbeddrDependencies) {
     script script_build_mbeddr
+	cmdargs scriptArgs()
 }
 
 def script_test_mbeddrTutorial = new File(scriptsBasePath + "/com.mbeddr.tutorial/" + "build-tests.xml")
@@ -110,41 +115,50 @@ def script_test_mbeddrExtEx = new File(scriptsBasePath + "/com.mbeddr.ext/" + "b
 def script_build_tutorialLanguages = new File(scriptsBasePath + "/com.mbeddr.tutorial/" + "build-languages.xml")
 def script_build_tutorialSolutions = new File(scriptsBasePath + "/com.mbeddr.tutorial/" + "build-solutions.xml")
 
-task build_tutorial_languages(type: BuildLanguages, dependsOn: build_mbeddr) {
+task build_tutorial_languages(type: ExecuteMPSBuildLanguages, dependsOn: build_mbeddr) {
     script script_build_tutorialLanguages
+	cmdargs scriptArgs()
 }
 
-task build_tutorial_solutions(type: BuildLanguages, dependsOn: build_tutorial_languages) {
+task build_tutorial_solutions(type: ExecuteMPSBuildLanguages, dependsOn: build_tutorial_languages) {
     script script_build_tutorialSolutions
+	cmdargs scriptArgs()
 }
 
 task build_tutorial(dependsOn: build_tutorial_solutions) { }
 
 
-task test_mbeddr_tutorial(type: TestLanguages, dependsOn: build_tutorial) {
+task test_mbeddr_tutorial(type: ExecuteMPSTestLanguages, dependsOn: build_tutorial) {
     script script_test_mbeddrTutorial
+	cmdargs scriptArgs()
 }
-task test_mbeddr_ext_ts(type: TestLanguages, dependsOn: build_mbeddr) {
+task test_mbeddr_ext_ts(type: ExecuteMPSTestLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrExtTs
+	cmdargs scriptArgs()
 }
-task test_mbeddr_performance(type: TestLanguages, dependsOn: build_mbeddr) {
+task test_mbeddr_performance(type: ExecuteMPSTestLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrPerformance
+	cmdargs scriptArgs()
 }
 
-task test_mbeddr_debugger(type: TestLanguages, dependsOn: build_mbeddr) {
+task test_mbeddr_debugger(type: ExecuteMPSTestLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrDebugger
+	cmdargs scriptArgs()
 }
 
-task build_mbeddr_core_ex(type: BuildLanguages, dependsOn: [build_mbeddr, copy_logConfig]) {
+task build_mbeddr_core_ex(type: ExecuteMPSBuildLanguages, dependsOn: [build_mbeddr, copy_logConfig]) {
     script script_test_mbeddrCoreEx
+	cmdargs scriptArgs()
 }
 
-task build_mbeddr_core_ex_library(type: BuildLanguages, dependsOn: build_mbeddr) {
+task build_mbeddr_core_ex_library(type: ExecuteMPSBuildLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrCoreExLibrary
+	cmdargs scriptArgs()
 }
 
-task test_mbeddr_core_ts(type: TestLanguages, dependsOn: build_mbeddr) {
+task test_mbeddr_core_ts(type: ExecuteMPSTestLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrCoreTs
+	cmdargs scriptArgs()
 }
 
 task test_mbeddr_core_ex_library << {
@@ -166,19 +180,22 @@ task test_mbeddr_cc_ex << {
     ant.makeTests(workingDirectory: rootProject.projectDir.absolutePath + "/code/languages/com.mbeddr.cc")
 }
 
-task build_mbeddr_cc_ex(type: RunMbeddrAntScript, dependsOn: build_mbeddr) {
+task build_mbeddr_cc_ex(type: ExecuteMPSGeneratedAntScript, dependsOn: build_mbeddr) {
     script script_test_mbeddrCcEx
+	cmdargs scriptArgs()
     targets 'clean', 'generate'
 }
 
-task test_mbeddr_cc_ts(type: TestLanguages, dependsOn: build_mbeddr) {
+task test_mbeddr_cc_ts(type: ExecuteMPSTestLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrCcTs
+	cmdargs scriptArgs()
 }
 
 task test_mbeddr_cc(dependsOn: [build_mbeddr_cc_ex, test_mbeddr_cc_ex, test_mbeddr_cc_ts]) {}
 
-task build_mbeddr_ext_ex(type: BuildLanguages, dependsOn: build_mbeddr) {
+task build_mbeddr_ext_ex(type: ExecuteMPSBuildLanguages, dependsOn: build_mbeddr) {
     script script_test_mbeddrExtEx
+	cmdargs scriptArgs()
 }
 
 task test_mbeddr_ext_ex << {

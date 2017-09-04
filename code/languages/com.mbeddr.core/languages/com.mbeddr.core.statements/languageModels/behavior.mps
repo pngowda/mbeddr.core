@@ -7149,6 +7149,22 @@
   <node concept="13h7C7" id="2GzcfKRG1Nw">
     <property role="3GE5qa" value="arbitraryText" />
     <ref role="13h7C2" to="c4fa:2GzcfKRFZYH" resolve="ArbitraryFunctionCall" />
+    <node concept="13i0hz" id="7x1S0Lw0zgl" role="13h7CS">
+      <property role="TrG5h" value="testMethod" />
+      <node concept="3Tm1VV" id="7x1S0Lw0zgm" role="1B3o_S" />
+      <node concept="3cqZAl" id="7x1S0Lw0zC5" role="3clF45" />
+      <node concept="3clFbS" id="7x1S0Lw0zgo" role="3clF47">
+        <node concept="3cpWs8" id="7x1S0Lw0_J5" role="3cqZAp">
+          <node concept="3cpWsn" id="7x1S0Lw0_J8" role="3cpWs9">
+            <property role="TrG5h" value="i" />
+            <node concept="10Oyi0" id="7x1S0Lw0_J4" role="1tU5fm" />
+            <node concept="3cmrfG" id="7x1S0Lw0_JY" role="33vP2m">
+              <property role="3cmrfH" value="10" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="13i0hz" id="2GzcfKRG2Db" role="13h7CS">
       <property role="TrG5h" value="isSideeffectFree" />
       <ref role="13i0hy" to="ywuz:6SENleF$SRD" resolve="isSideeffectFree" />

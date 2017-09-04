@@ -247,6 +247,27 @@
   </registry>
   <node concept="13h7C7" id="7GaZbxRWsN$">
     <ref role="13h7C2" to="i0j2:7GaZbxRVe7Q" resolve="IconChar" />
+    <node concept="13i0hz" id="7x1S0Lw0rkj" role="13h7CS">
+      <property role="TrG5h" value="test" />
+      <node concept="3Tm1VV" id="7x1S0Lw0rkk" role="1B3o_S" />
+      <node concept="3cqZAl" id="7x1S0Lw0ssv" role="3clF45" />
+      <node concept="3clFbS" id="7x1S0Lw0rkm" role="3clF47">
+        <node concept="3clFbF" id="7x1S0Lw0suH" role="3cqZAp">
+          <node concept="2OqwBi" id="7x1S0Lw0suE" role="3clFbG">
+            <node concept="10M0yZ" id="7x1S0Lw0suF" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="7x1S0Lw0suG" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String):void" resolve="println" />
+              <node concept="Xl_RD" id="7x1S0Lw0svB" role="37wK5m">
+                <property role="Xl_RC" value="hello world" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
     <node concept="13i0hz" id="3TQBmq3qB5f" role="13h7CS">
       <property role="TrG5h" value="init" />
       <node concept="3Tm1VV" id="3TQBmq3qB5g" role="1B3o_S" />
