@@ -33,13 +33,13 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         println "build file path "+buildFilePath
         def ioFile=new File(buildFilePath.getParent()+"\\"+buildFilePath.getName().split("\\.")[0]+"_incrementalIO.xml")
         if(ioFile.exists()){
-            println "IO file path "+ ioFile
+            //println "IO file path "+ ioFile
             getProperties(buildFilePath)
             parseAntBuildXmlFileInput(ioFile)
         }
         FileCollection files = getProject().files();
         for (f in resolvedInputPath ) {
-            println "files "+ f
+           // println "files "+ f
             files = files.plus(getProject().fileTree(new File(f)));
         }
         return files;
@@ -65,7 +65,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         ProjectHelper.configureProject(antProject, ioFilePath)
         propertyMap = antProject.getProperties()
         propertyMap.each { keyA, valueA -> writePropMap.put("\${" + "$keyA" + "}", "$valueA") }
-        writePropMap.each { keyB, valueB -> println "$keyB --> $valueB" }
+        //writePropMap.each { keyB, valueB -> println "$keyB --> $valueB" }
 
     }
 
