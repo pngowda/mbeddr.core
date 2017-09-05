@@ -30,7 +30,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     @InputFiles
     def getInputFiles(){
         def buildFilePath= project.file(script)
-        println "build file path "+buildFilePath
+       // println "build file path "+buildFilePath
         def ioFile=new File(buildFilePath.getParent()+"\\"+buildFilePath.getName().split("\\.")[0]+"_incrementalIO.xml")
         if(ioFile.exists()){
             //println "IO file path "+ ioFile
