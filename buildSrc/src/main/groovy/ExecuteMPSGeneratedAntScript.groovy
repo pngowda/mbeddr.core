@@ -30,19 +30,17 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     @InputFiles
     def getInputFiles(){
         def buildFilePath= project.file(script)
-        //println "build file path "+buildFilePath
         def ioFile=new File(buildFilePath.getParent()+"\\"+buildFilePath.getName().split("\\.")[0]+"_incrementalIO.xml")
-        if(ioFile.exists()){
-            //println "IO file path "+ ioFile
+        if(ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileInput(ioFile)
+            FileCollection files = getProject().files();
+            for (f in resolvedInputPath) {
+                files = files.plus(getProject().fileTree(new File(f)));
+            }
+            return files;
         }
-        FileCollection files = getProject().files();
-        for (f in resolvedInputPath ) {
-            //println "files "+ f
-            files = files.plus(getProject().fileTree(new File(f)));
-        }
-        return files;
+        //return null
     }
 
     @OutputFiles
@@ -52,13 +50,13 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         if(ioFile.exists()){
             getProperties(buildFilePath)
             parseAntBuildXmlFileOutput(ioFile)
+            FileCollection files = getProject().files();
+            for (f in resolvedOutputPath ) {
+                files = files.plus(getProject().fileTree(new File(f)));
+            }
+            return files;
         }
-        FileCollection files = getProject().files();
-        for (f in resolvedOutputPath ) {
-            println "file "+ f
-            files = files.plus(getProject().fileTree(new File(f)));
-        }
-        return files;
+        //return null
     }
 
     def getProperties(ioFilePath){
@@ -67,7 +65,6 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         propertyMap = antProject.getProperties()
         propertyMap.each { keyA, valueA -> writePropMap.put("\${" + "$keyA" + "}", "$valueA") }
         //writePropMap.each { keyB, valueB -> println "$keyB --> $valueB" }
-
     }
 
     def parseAntBuildXmlFileInput(ioFilePath){
@@ -79,6 +76,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
                 def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
                 resolvedInputPath.add(resolvedPath)
             }
+            resolvedInputPath=resolvedInputPath.unique()
         }
     }
 
@@ -91,12 +89,12 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
                 def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
                 resolvedOutputPath.add(resolvedPath)
             }
+            resolvedOutputPath=resolvedOutputPath.unique()
         }
     }
 
     @TaskAction
     def build(IncrementalTaskInputs inputs) {
-        println "boolean value: "+isIncremental
         println inputs.incremental ? "CHANGED inputs considered out of date"
                                    : "ALL inputs considered out of date"
         if (!inputs.incremental) {
