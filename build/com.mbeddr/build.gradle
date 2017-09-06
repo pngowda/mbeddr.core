@@ -104,11 +104,13 @@ subprojects {
     configurations {
         mps
         ant_lib
+		id
     }
 
     dependencies {
         mps "com.jetbrains:mps:$mpsBuild"
         ant_lib "org.apache.ant:ant-junit:1.10.1"
+		id "com.gradle.build-scan:1.9"
     }
 }
 

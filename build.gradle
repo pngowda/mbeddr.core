@@ -8,6 +8,7 @@ ext.artifactsDir = new File(rootDir, 'artifacts')
 
 ext.ciBuild = project.findProperty("forceCI") ?: !project.findProperty('mpsHomeDir') && project.findProperty("teamcity")
 
+
 buildscript {
     repositories {
         mavenLocal()
@@ -29,3 +30,4 @@ task wrapper(type: Wrapper) {
     gradleVersion '4.0'
     distributionType 'all'
 }
+
