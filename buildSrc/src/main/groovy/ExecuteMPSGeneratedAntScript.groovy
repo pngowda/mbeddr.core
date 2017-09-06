@@ -31,15 +31,17 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     def getInputFiles(){
         def buildFilePath= project.file(script)
         def ioFile=new File(buildFilePath.getParent()+"\\"+buildFilePath.getName().split("\\.")[0]+"_incrementalIO.xml")
+        println "ioFile "+ioFile
         if(ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileInput(ioFile)
+        }
             FileCollection files = getProject().files();
             for (f in resolvedInputPath) {
                 files = files.plus(getProject().fileTree(new File(f)));
             }
             return files;
-        }
+
         //return null
     }
 
@@ -47,16 +49,17 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     def getOutputFiles(){
         def buildFilePath= project.file(script)
         def ioFile=new File(buildFilePath.getParent()+"\\"+buildFilePath.getName().split("\\.")[0]+"_incrementalIO.xml")
-        if(ioFile.exists()){
+        if(ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileOutput(ioFile)
+        }
             FileCollection files = getProject().files();
             for (f in resolvedOutputPath ) {
                 files = files.plus(getProject().fileTree(new File(f)));
             }
             return files;
-        }
-        //return null
+
+
     }
 
     def getProperties(ioFilePath){
@@ -76,8 +79,9 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
                 def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
                 resolvedInputPath.add(resolvedPath)
             }
-            resolvedInputPath=resolvedInputPath.unique()
+
         }
+        resolvedInputPath=resolvedInputPath.unique()
     }
 
     def parseAntBuildXmlFileOutput(ioFilePath){
@@ -89,8 +93,9 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
                 def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
                 resolvedOutputPath.add(resolvedPath)
             }
-            resolvedOutputPath=resolvedOutputPath.unique()
+
         }
+        resolvedOutputPath=resolvedOutputPath.unique()
     }
 
     @TaskAction
