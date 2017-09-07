@@ -1,12 +1,8 @@
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputFiles
-import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import org.apache.tools.ant.Project
 import org.apache.tools.ant.ProjectHelper
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
@@ -15,10 +11,10 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     Object script
     Object cmdargs
     List<String> targets = Collections.emptyList()
-    def propertyMap=[keyA: 'valueA']
-    def writePropMap=[keyB: 'valueB']
-    def inputFileList=new ArrayList()
-    def outputFileList=new ArrayList()
+    def propertyMap = [keyA: 'valueA']
+    def writePropMap = [keyB: 'valueB']
+    def inputFileList = new ArrayList()
+    def outputFileList = new ArrayList()
     List<File> resolvedInputPath =new ArrayList<File>()
     List<File> resolvedOutputPath =new ArrayList<File>()
     boolean isIncremental=false
@@ -32,17 +28,21 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         println "Inside getInputFiles"
         def buildFilePath = project.file(script)
         def ioFile = new File(buildFilePath.getParent() + "\\" + buildFilePath.getName().split("\\.")[0] + "_incrementalIO.xml")
+        FileCollection files = getProject().files();
         println "Input Calculation: IOFile--> " + ioFile
-        if (ioFile.exists()) {
+        if (project.hasProperty('inc') && ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileInput(ioFile)
-        }
-            FileCollection files = getProject().files();
             for (f in resolvedInputPath) {
                 println "input file: " + f
                 files = files.plus(getProject().fileTree(new File(f)));
             }
-                return files;
+            return files;
+        }
+        else {
+            println "Either Incremental mode is disabled 'OR' Input-Output xml file is missing."
+            return files
+        }
    }
 
     @OutputFiles
@@ -50,17 +50,20 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         println "Inside getOutputFiles"
         def buildFilePath = project.file(script)
         def ioFile = new File(buildFilePath.getParent() + "\\" + buildFilePath.getName().split("\\.")[0] + "_incrementalIO.xml")
+        FileCollection files = getProject().files();
         println "Output Calculation: IOFile--> " + ioFile
-        if (ioFile.exists()) {
+        if (project.hasProperty('inc') && ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileOutput(ioFile)
+            for (f in resolvedOutputPath) {
+                println "output file: " + f
+                files = files.plus(getProject().fileTree(new File(f)));
+            }
+            return files;
+        }else {
+            println "Either Incremental mode is disabled 'OR' Input-Output xml file is missing."
+            return files
         }
-        FileCollection files = getProject().files();
-        for (f in resolvedOutputPath) {
-            println "output file: "+f
-            files = files.plus(getProject().fileTree(new File(f)));
-        }
-        return files;
     }
 
     def getProperties(ioFilePath){
@@ -97,10 +100,15 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
 
     @TaskAction
     def build(IncrementalTaskInputs inputs) {
+        if (project.hasProperty('inc')){
+            println "Incremental mode has been enabled"
             println inputs.incremental ? "CHANGED inputs considered out of date"
                     : "ALL inputs considered out of date"
             if (!inputs.incremental) {
                 isIncremental = false
+            }
+            if(inputs.incremental){
+                println "its incremental"
             }
             inputs.outOfDate { change ->
                 println "out of date: ${change.file.name}"
@@ -111,10 +119,12 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
             if (!isIncremental) {
                 spawnAnt()
             } else {
-                println "nothing changed so skipping the task"
+                println "Nothing changed since last run. so, skipping the task"
             }
+        } else {
+            spawnAnt()
         }
-
+    }
 
     def spawnAnt() {
         project.javaexec {
@@ -125,7 +135,8 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
                 true
             }) + project.files("$project.jdk_home/lib/tools.jar")
 
-            args(*['-verbose', *cmdargs , '-buildfile', project.file(script), *targets])
+            args(*['-verbose', *cmdargs, '-buildfile', project.file(script), *targets])
         }
     }
+
 }
