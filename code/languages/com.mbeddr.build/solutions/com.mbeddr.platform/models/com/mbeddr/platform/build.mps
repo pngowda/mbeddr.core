@@ -6,7 +6,7 @@
     <use id="0cf935df-4699-4e9c-a132-fa109541cba3" name="jetbrains.mps.build.mps" version="-1" />
     <use id="479c7a8c-02f9-43b5-9139-d910cb22f298" name="jetbrains.mps.core.xml" version="-1" />
     <use id="3600cb0a-44dd-4a5b-9968-22924406419e" name="jetbrains.mps.build.mps.tests" version="-1" />
-    <use id="8b477472-2f12-434e-8cec-3ed18d0400ee" name="de.itemis.mps.build.incremental" version="0" />
+    <use id="8b477472-2f12-434e-8cec-3ed18d0400ee" name="de.itemis.mps.build.incremental" version="-1" />
   </languages>
   <imports>
     <import index="ffeo" ref="r:874d959d-e3b4-4d04-b931-ca849af130dd(jetbrains.mps.ide.build)" />
@@ -228,6 +228,7 @@
   <node concept="1l3spW" id="3AVJcIMlF8l">
     <property role="TrG5h" value="com.mbeddr.platform" />
     <property role="2DA0ip" value="../../../../../build/com.mbeddr.platform" />
+    <node concept="2ZbZbG" id="7x1S0LvFS2t" role="lGtFl" />
     <node concept="2igEWh" id="$bJ0jguQs8" role="1hWBAP">
       <property role="2igJW4" value="true" />
       <property role="3UIfUI" value="16384" />
@@ -14062,7 +14063,7 @@
         </node>
         <node concept="1SiIV0" id="23klwgWbJ$v" role="3bR37C">
           <node concept="3bR9La" id="23klwgWbJ$w" role="1SiIV1">
-            <property role="3bR36h" value="false" />
+            <property role="3bR36h" value="true" />
             <ref role="3bR37D" to="ffeo:mXGwHwhVPj" resolve="JDK" />
           </node>
         </node>
@@ -14082,6 +14083,12 @@
           <node concept="3bR9La" id="23klwgWbJ$A" role="1SiIV1">
             <property role="3bR36h" value="false" />
             <ref role="3bR37D" to="ffeo:1TaHNgiIbIQ" resolve="MPS.Core" />
+          </node>
+        </node>
+        <node concept="1SiIV0" id="7XJGPBqoUYC" role="3bR37C">
+          <node concept="3bR9La" id="7XJGPBqoUYD" role="1SiIV1">
+            <property role="3bR36h" value="false" />
+            <ref role="3bR37D" to="90a9:31bAEZ0srt5" resolve="org.apache.commons" />
           </node>
         </node>
       </node>
@@ -15107,7 +15114,6 @@
         </node>
       </node>
     </node>
-    <node concept="2ZbZbG" id="7x1S0LvFS2t" role="lGtFl" />
   </node>
   <node concept="1l3spW" id="6ucYLjosbT2">
     <property role="TrG5h" value="com.mbeddr.platform.distribution" />
