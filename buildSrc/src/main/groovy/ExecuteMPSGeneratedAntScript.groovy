@@ -1,15 +1,8 @@
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputFiles
-import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileCollection
+import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.TaskAction
-import org.gradle.util.internal.ArgumentsSplitter
-
-import java.io.File
-import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import org.apache.tools.ant.Project
 import org.apache.tools.ant.ProjectHelper
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
@@ -33,36 +26,31 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
 
     @InputFiles
     def getInputFiles(){
-        println "Inside getInputFiles"
+        logger.debug("Input Calculation")
         def buildFilePath = project.file(script)
         def ioFile = new File(buildFilePath.getParent() + File.separator + buildFilePath.getName().split("\\.")[0] + "_incrementalIO.xml")
-        println "Input Calculation: IOFile--> " + ioFile
         if (ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileInput(ioFile)
         }
-            FileCollection files = getProject().files();
-            for (f in resolvedInputPath) {
-                println "input file: " + f
-                files = files.plus(getProject().fileTree(new File(f)));
-            }
-                return files;
-   }
+        FileCollection files = getProject().files();
+        for (f in resolvedInputPath) {
+            files = files.plus(getProject().fileTree(new File(f)));
+        }
+        return files;
+    }
 
     @OutputFiles
     def getOutputFiles(){
-        println "Inside getOutputFiles"
+        logger.debug("Output Calculation")
         def buildFilePath = project.file(script)
-
         def ioFile = new File(buildFilePath.getParent() + File.separator + buildFilePath.getName().split("\\.")[0] + "_incrementalIO.xml")
-        println "Output Calculation: IOFile--> " + ioFile
         if (ioFile.exists()) {
             getProperties(buildFilePath)
             parseAntBuildXmlFileOutput(ioFile)
         }
         FileCollection files = getProject().files();
         for (f in resolvedOutputPath) {
-            println "output file: "+f
             files = files.plus(getProject().fileTree(new File(f)));
         }
         return files;
@@ -70,30 +58,25 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
 
     def getProperties(ioFilePath) {
         String cmdArgData = cmdargs.toString();
+        logger.debug("Command Arguments: "+cmdArgData)
         cmdArgData.splitEachLine(",") {
             it.each { x ->
                 def object = x.split("=")
                 globalPropMap.put(object[0].split("-D").getAt(1), object[1])
             }
         }
-        for (String s : globalPropMap.keySet()) {
-            System.out.println(s + " is " + globalPropMap.get(s));
-        }
         def antProject = new Project()
         ProjectHelper.configureProject(antProject, ioFilePath)
         propertyMap = antProject.getProperties()
         propertyMap.each { keyA, valueA ->
-            println "$keyA === $valueA"
             if (globalPropMap.containsKey(keyA)) {
-                println "inside map if condition"
                 writePropMap.put("\${" + "$keyA" + "}", globalPropMap.get(keyA))
             } else {
-                println "inside map else condition"
                 writePropMap.put("\${" + "$keyA" + "}", "$valueA")
             }
         }
-        writePropMap.each {keyB, valueB -> println "$keyB --> $valueB" }
     }
+
 
     def parseAntBuildXmlFileInput(ioFilePath){
         def parsedProjectXml = new XmlSlurper().parse(ioFilePath)
@@ -102,7 +85,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
             if (it.toString().contains("\$")) {
                 def toResolveString = it.toString().split("/").getAt(0)
                 def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
-                println "input path: " + resolvedPath
+                logger.debug("Input File: "+resolvedPath)
                 resolvedInputPath.add(resolvedPath)
             }
         }
@@ -114,8 +97,8 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         outputFileList.each {
             if (it.toString().contains("\$")) {
                 def toResolveString = it.toString().split("/").getAt(0)
-                def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
-                println "output path: " + resolvedPath
+            def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
+                logger.debug("Output File: "+resolvedPath)
                 resolvedOutputPath.add(resolvedPath)
             }
         }
@@ -123,24 +106,23 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
 
     @TaskAction
     def build(IncrementalTaskInputs inputs) {
-            println inputs.incremental ? "CHANGED inputs considered out of date"
-                    : "ALL inputs considered out of date"
-            if (!inputs.incremental) {
-                isIncremental = false
-            }
-            inputs.outOfDate { change ->
-                println "out of date: ${change.file.name}"
-            }
-            inputs.removed { change ->
-                println "removed: ${change.file.name}"
-            }
-            if (!isIncremental) {
-                spawnAnt()
-            } else {
-                println "nothing changed so skipping the task"
-            }
+        println inputs.incremental ? "CHANGED inputs considered out of date"
+            : "ALL inputs considered out of date"
+        if (!inputs.incremental) {
+            isIncremental = false
         }
-
+        inputs.outOfDate { change ->
+            println "out of date: ${change.file.name}"
+        }
+        inputs.removed { change ->
+            println "removed: ${change.file.name}"
+        }
+        if (!isIncremental) {
+            spawnAnt()
+        } else {
+            println "Nothing changed so skipping the task"
+        }
+    }
 
     def spawnAnt() {
         project.javaexec {
@@ -148,7 +130,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
             workingDir project.rootDir
 
             classpath project.configurations.ant_lib.fileCollection({
-                true
+            true
             }) + project.files("$project.jdk_home/lib/tools.jar")
 
             args(*['-verbose', *cmdargs , '-buildfile', project.file(script), *targets])

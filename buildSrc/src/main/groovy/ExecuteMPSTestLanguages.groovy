@@ -1,11 +1,12 @@
 class ExecuteMPSTestLanguages extends ExecuteMPSGeneratedAntScript {
     ExecuteMPSTestLanguages() {
-        if (project.hasProperty('inc')){
+        targets 'clean', 'generate', 'assemble', 'check'
+        /*if (project.hasProperty('inc')){
             println "Incremental mode is enabled"
             targets 'generate', 'assemble', 'check'
         } else {
             println "Incremental mode is disabled"
-            targets 'generate', 'assemble', 'check'
-        }
+           targets 'clean', 'generate', 'assemble', 'check'
+        }*/
     }
 }
