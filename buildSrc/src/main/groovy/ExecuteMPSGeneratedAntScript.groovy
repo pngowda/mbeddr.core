@@ -12,6 +12,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     Object cmdargs
     List<String> targets = Collections.emptyList()
     def IOoutputPropertyMap =[keyB: 'valueB']
+
     List<File> inputResolvedFileList =new ArrayList<File>()
     List<File> outputResolvedFileList =new ArrayList<File>()
     FileCollection IOFilesToReturn = getProject().files();
@@ -43,7 +44,12 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         } else{
             if(!project.hasProperty('incremental'))logger.info("Incremental mode is disabled.")
             if(!generatedIOXMLFile.exists())logger.info("Input-Output xml file is missing.")
-            def tempFile=File.createTempFile("temp_input", ".tmp")
+            for (File f : (project.file(System.getProperty("user.dir")+File.separator+".gradle")).listFiles()) {
+                if (f.getName().startsWith("temp_input")|| f.getName().startsWith("temp_output") ) {
+                    f.delete();
+                }
+            }
+            def tempFile=File.createTempFile("temp_input", ".tmp", project.file(System.getProperty("user.dir")+File.separator+".gradle"))
             IOFilesToReturn = IOFilesToReturn.plus(getProject().fileTree(tempFile));
             return IOFilesToReturn
         }
@@ -72,7 +78,7 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
         } else {
             if(!project.hasProperty('incremental'))logger.debug("Incremental mode is disabled.")
             if(!ioFile.exists())logger.debug("Input-Output xml file is missing.")
-            def tempFile=File.createTempFile("temp_output", ".tmp")
+            def tempFile=File.createTempFile("temp_output", ".tmp",project.file(System.getProperty("user.dir")+File.separator+".gradle") )
             IOFilesToReturn = IOFilesToReturn.plus(getProject().fileTree(tempFile));
             return IOFilesToReturn
         }
