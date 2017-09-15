@@ -12,7 +12,6 @@ class ExecuteMPSGeneratedAntScript extends DefaultTask {
     Object cmdargs
     List<String> targets = Collections.emptyList()
     def IOoutputPropertyMap =[keyB: 'valueB']
-
     List<File> inputResolvedFileList =new ArrayList<File>()
     List<File> outputResolvedFileList =new ArrayList<File>()
     FileCollection IOFilesToReturn = getProject().files();
