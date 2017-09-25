@@ -147,7 +147,6 @@ code/*/xmlCBMCRawOutput/*
 
 /build/**/*.xml
 /build/com.mbeddr.allScripts/build.xml
-/build/com.mbeddr.allScripts/build_incrementalIO.xml
 
 # -----------------------------------------------------------
 # tutorial build

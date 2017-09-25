@@ -8,14 +8,12 @@
   <property name="mbeddr.github.core.home" location="${basedir}/../.." />
   <property name="mbeddr.build" location="${mbeddr.github.core.home}/code/languages/com.mbeddr.build" />
   <property name="spawner.artifacts" location="${basedir}/../com.mbeddr.spawner/build/artifacts/com.mbeddr.spawner.build" />
-  <property name="de.itemis.inc.artifacts" location="${artifacts.root}/de.itemis.mps.build" />
   <property name="platform.sl-all" location="${artifacts.root}/mps-sl-all" />
   <property name="major.version" value="0" />
   <property name="minor.version" value="8" />
   <property name="build" value="0000" />
   <property name="mbeddr.version" value="${major.version}.${minor.version}-${build}" />
   <property name="artifacts.mps" location="${mps.home}" />
-  <property name="artifacts.de.itemis.mps.build" location="${de.itemis.inc.artifacts}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -48,7 +46,6 @@
         <depends>jetbrains.mps.execution.api</depends>
         <depends>jetbrains.mps.execution.languages</depends>
         <depends>jetbrains.mps.execution.configurations</depends>
-        <depends>de.itemis.mps.build.icremental</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -606,7 +603,6 @@
   <target name="generate" depends="declare-mps-tasks, fetchDependencies">
     <echo message="generating" />
     <generate strictMode="true" parallelMode="true" parallelThreads="4" useInplaceTransform="true" hideWarnings="false" createStaticRefs="true" fork="true" targetJavaVersion="1.8">
-      <plugin path="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental" />
       <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <plugin path="${artifacts.mps}/plugins/mps-debugger-api" />
@@ -615,9 +611,6 @@
       <plugin path="${artifacts.mps}/plugins/mps-execution-configurations" />
       <plugin path="${artifacts.mps}/plugins/mps-execution-languages" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.incremental.io.jar" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.incremental.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.classifiers.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.closures.jar" />
@@ -733,7 +726,6 @@
       <macro name="mbeddr.github.core.home" path="${mbeddr.github.core.home}" />
       <macro name="mbeddr.build" path="${mbeddr.build}" />
       <macro name="spawner.artifacts" path="${spawner.artifacts}" />
-      <macro name="de.itemis.inc.artifacts" path="${de.itemis.inc.artifacts}" />
       <macro name="platform.sl-all" path="${platform.sl-all}" />
     </generate>
   </target>
@@ -773,7 +765,6 @@
         <fileset file="${artifacts.mps}/lib/jdom.jar" />
         <fileset file="${artifacts.mps}/lib/trove4j.jar" />
         <fileset file="${artifacts.mps}/lib/ecj-4.6.2.jar" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
       </classpath>
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.allScripts">
@@ -981,10 +972,7 @@
       <src>
         <path location="${mbeddr.build}/solutions/com.mbeddr.platform/source_gen" />
       </src>
-      <classpath>
-        <pathelement path="${build.tmp}/java/out/de.slisson.mps.all.build" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
-      </classpath>
+      <classpath path="${build.tmp}/java/out/de.slisson.mps.all.build" />
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.platform">
       <fileset dir="${mbeddr.build}/solutions/com.mbeddr.platform/source_gen">
@@ -1042,7 +1030,6 @@
       <classpath>
         <pathelement path="${build.tmp}/java/out/com.mbeddr.platform" />
         <pathelement path="${build.tmp}/java/out/de.slisson.mps.all.build" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
       </classpath>
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.build">

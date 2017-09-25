@@ -11,9 +11,7 @@ configurations {
 
 ext.dependencyRepositories = [
         'https://projects.itemis.de/nexus/content/repositories/mbeddr',
-        'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
-        'https://projects.itemis.de/nexus/content/repositories/de.itemis.mps.build'
-]
+        'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots' ]
 
 ext.jdkVersion = '8u112b408.4'
 dependencies {
@@ -38,14 +36,12 @@ task resolveMpsArtifacts() {
 
 def script_build_mbeddrAllInOne = new File(scriptsBasePath + "/com.mbeddr.allInOne/" + "build.xml")
 
-task build_all_in_one(type: ExecuteMPSBuildLanguages, dependsOn: [':build:com.mbeddr:platform:copy_allScripts', resolveMpsArtifacts]) {
+task build_all_in_one(type: BuildLanguages, dependsOn: [':build:com.mbeddr:platform:copy_allScripts', resolveMpsArtifacts]) {
     script script_build_mbeddrAllInOne
-	cmdargs scriptArgs()
 }
 
-task build_platform_distribution(type: ExecuteMPSBuildLanguages, dependsOn: [':build:com.mbeddr:platform:copy_allScripts', resolveMpsArtifacts]) {
+task build_platform_distribution(type: BuildLanguages, dependsOn: [':build:com.mbeddr:platform:copy_allScripts', resolveMpsArtifacts]) {
     script scriptFile('com.mbeddr.platform/build-distribution.xml')
-	cmdargs scriptArgs()
     // Support incremental build
     inputs.file(script)
 }
@@ -62,14 +58,12 @@ task prepare_distribution(dependsOn: [build_all_in_one, build_platform_distribut
 def script_build_mbeddr_branding = new File(scriptsBasePath + "/com.mbeddr.rcp/" + "mps.xml")
 def script_build_mbeddrRCP = new File(scriptsBasePath + "/com.mbeddr.rcp/" + "mpsDistribution.xml")
 
-task build_mbeddr_branding(type: ExecuteMPSBuildLanguages, dependsOn: prepare_distribution) {
+task build_mbeddr_branding(type: BuildLanguages, dependsOn: prepare_distribution) {
     script script_build_mbeddr_branding
-	cmdargs scriptArgs()
 }
 
-task build_mbeddrRCP(type: ExecuteMPSGeneratedAntScript, dependsOn: build_mbeddr_branding) {
+task build_mbeddrRCP(type: RunMbeddrAntScript, dependsOn: build_mbeddr_branding) {
     script script_build_mbeddrRCP
-	cmdargs scriptArgs()
     targets 'clean', 'assemble'
 }
 
