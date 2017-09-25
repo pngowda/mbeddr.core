@@ -2,7 +2,18 @@ ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/m
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
 
 ext.mpsMajor = "2017.2"
-ext.mpsBuild = "2017.2.2"
+//ext.mpsBuild = "2017.2.2"
+
+def mpsSnapshotVersion=System.getenv('mpsVersion')
+
+if (mpsSnapshotVersion != null && !mpsSnapshotVersion.empty) {
+    ext.mpsBuild = mpsSnapshotVersion
+} else {
+    ext.mpsBuild = '2017.2.2'
+}
+
+println "MPS Version: " + ext.mpsBuild
+
 
 ext.artifactsDir = new File(rootDir, 'artifacts')
 
