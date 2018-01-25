@@ -29,6 +29,7 @@ TEST-*.xml
 junit*.properties
 
 classes_gen
+doc_gen
 source_gen
 source_gen.caches
 result_gen
@@ -147,7 +148,6 @@ code/*/xmlCBMCRawOutput/*
 
 /build/**/*.xml
 /build/com.mbeddr.allScripts/build.xml
-/build/com.mbeddr.allScripts/build_incrementalIO.xml
 
 # -----------------------------------------------------------
 # tutorial build

@@ -1,13 +1,13 @@
 ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
 ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
 
-ext.mpsMajor = "2017.2"
-ext.mpsBuild = "2017.2.1"
+//MPS versions
+ext.mpsMajor = "2017.3"
+ext.mpsBuild = "2017.3.2"
 
 ext.artifactsDir = new File(rootDir, 'artifacts')
 
 ext.ciBuild = project.findProperty("forceCI") ?: !project.findProperty('mpsHomeDir') && project.findProperty("teamcity")
-
 
 buildscript {
     repositories {
@@ -27,7 +27,6 @@ subprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion '4.0'
+    gradleVersion '4.4.1'
     distributionType 'all'
 }
-

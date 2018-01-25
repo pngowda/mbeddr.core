@@ -6,7 +6,7 @@
     <use id="ebb5e132-d298-4649-b320-b3f4d7f3acff" name="com.mbeddr.core.debug.blext" version="-1" />
     <use id="63e0e566-5131-447e-90e3-12ea330e1a00" name="com.mbeddr.mpsutil.blutil" version="-1" />
     <use id="7a5dda62-9140-4668-ab76-d5ed1746f2b2" name="jetbrains.mps.lang.typesystem" version="1" />
-    <use id="c72da2b9-7cce-4447-8389-f407dc1158b7" name="jetbrains.mps.lang.structure" version="5" />
+    <use id="c72da2b9-7cce-4447-8389-f407dc1158b7" name="jetbrains.mps.lang.structure" version="6" />
     <devkit ref="fbc25dd2-5da4-483a-8b19-70928e1b62d7(jetbrains.mps.devkit.general-purpose)" />
   </languages>
   <imports>
@@ -7149,22 +7149,6 @@
   <node concept="13h7C7" id="2GzcfKRG1Nw">
     <property role="3GE5qa" value="arbitraryText" />
     <ref role="13h7C2" to="c4fa:2GzcfKRFZYH" resolve="ArbitraryFunctionCall" />
-    <node concept="13i0hz" id="7x1S0Lw0zgl" role="13h7CS">
-      <property role="TrG5h" value="testMethod" />
-      <node concept="3Tm1VV" id="7x1S0Lw0zgm" role="1B3o_S" />
-      <node concept="3cqZAl" id="7x1S0Lw0zC5" role="3clF45" />
-      <node concept="3clFbS" id="7x1S0Lw0zgo" role="3clF47">
-        <node concept="3cpWs8" id="7x1S0Lw0_J5" role="3cqZAp">
-          <node concept="3cpWsn" id="7x1S0Lw0_J8" role="3cpWs9">
-            <property role="TrG5h" value="i" />
-            <node concept="10Oyi0" id="7x1S0Lw0_J4" role="1tU5fm" />
-            <node concept="3cmrfG" id="7x1S0Lw0_JY" role="33vP2m">
-              <property role="3cmrfH" value="10" />
-            </node>
-          </node>
-        </node>
-      </node>
-    </node>
     <node concept="13i0hz" id="2GzcfKRG2Db" role="13h7CS">
       <property role="TrG5h" value="isSideeffectFree" />
       <ref role="13i0hy" to="ywuz:6SENleF$SRD" resolve="isSideeffectFree" />

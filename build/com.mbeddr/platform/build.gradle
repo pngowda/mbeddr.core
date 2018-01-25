@@ -16,32 +16,9 @@ if (project.skipResolveMps) {
     }
 }
 
-ext.dependencyRepositories = [
-        'https://projects.itemis.de/nexus/content/repositories/de.itemis.mps.build'
-]
 
-configurations {
-    mpsArtifacts
-}
-
-dependencies {
-	mpsArtifacts "de.itemis.mps:build:$mpsBuildPluginNumber"
-}
-
-task resolveMpsArtifacts() {
-    doLast {
-        copy {
-            from {
-                    configurations.mpsArtifacts.resolve().collect { zipTree(it) }
-                 }
-            into artifactsDir
-        }
-    }
-}
-
-task build_allScripts(type: ExecuteMPSBuildLanguages, dependsOn: [resolve_mps, resolveMpsArtifacts]) {
+task build_allScripts(type: BuildLanguages, dependsOn: resolve_mps) {
     script rootProject.file('build/com.mbeddr.allScripts/build.xml')
-	cmdargs scriptArgs()
 }
 
 task copy_allScripts(type: Copy, dependsOn: build_allScripts) {
@@ -58,9 +35,8 @@ task publish_allScripts(type: Zip, dependsOn: build_allScripts) {
 }
 
 
-task build_sl_all(type: ExecuteMPSBuildLanguages, dependsOn: copy_allScripts) {
+task build_sl_all(type: BuildLanguages, dependsOn: copy_allScripts) {
     script scriptFile('sl-all/build.xml')
-	cmdargs scriptArgs()
 }
 
 task copy_sl_all_nativelibs(type: Copy, dependsOn: build_sl_all) {
@@ -69,29 +45,29 @@ task copy_sl_all_nativelibs(type: Copy, dependsOn: build_sl_all) {
     into "$mpsHomeDir/plugins"
 }
 
-
 task install_sl_all_nativelibs(type: Copy, dependsOn: build_sl_all) {
     from "$rootDir/artifacts/mps-sl-all/"
     include "de.itemis.mps.nativelibs.loader/"
-    into "$mpsInstallationDir/plugins"
+    into "$mpsPluginsDir"
 }
 
-
-
-task build_platform(type: ExecuteMPSBuildLanguages, dependsOn: copy_sl_all_nativelibs) {
+task build_platform(type: BuildLanguages, dependsOn: copy_sl_all_nativelibs) {
     script scriptFile('com.mbeddr.platform/build.xml')
-	cmdargs scriptArgs()
 }
 
-task test_mbeddr_platform(type: ExecuteMPSTestLanguages, dependsOn: build_platform) {
+task install_actionsfilter(type: Copy, dependsOn: build_platform) {
+    from "$rootDir/artifacts/com.mbeddr.platform/"
+    include "com.mbeddr.mpsutil.actionsfilter/"
+    into "$mpsPluginsDir"
+}
+
+task test_mbeddr_platform(type: TestLanguages, dependsOn: build_platform) {
     script script_test_mbeddrPlatform
-	cmdargs scriptArgs()
-	
+    description "execute typesystem and generator tests for the plaform"
 }
 
-task build_platform_distribution(type: ExecuteMPSBuildLanguages, dependsOn: [build_platform, test_mbeddr_platform]) {
+task build_platform_distribution(type: BuildLanguages, dependsOn: [build_platform, test_mbeddr_platform]) {
     script scriptFile('com.mbeddr.platform/build-distribution.xml')
-	cmdargs scriptArgs()
 
     // Support incremental build
     inputs.file(script)
@@ -106,7 +82,25 @@ task publish_mbeddrPlatform(type: Zip, dependsOn: test_mbeddr_platform) {
     include "com.mbeddr.platform/**"
 }
 
+task defaultWrapper(dependsOn: build_platform) {
+    doFirst {
+        println "####################################################################################"
+        println "#                      THE DEFAULT TASK HAS BEEN CHANGED                           #"
+        println "#                                                                                  #"
+        println "# The default task now only builds the mbeddr platform and no longer all of mbeddr #"
+        println "# including the C part. In order to build everything you will have to invoke the   #"
+        println "# task build_mbeddr. This will give you the old behaviour of building everything.  #"
+        println "####################################################################################"
+    }
+
+}
+
+rootProject.defaultTasks 'defaultWrapper'
+
 task publishMbeddrPlatformToLocal(dependsOn: ['publishMbeddrAllScriptsPublicationToMavenLocal', 'publishMbeddrPlatformPublicationToMavenLocal'])
+
+tasks.getByPath(':build:com.mbeddr:install').dependsOn install_actionsfilter
+tasks.getByPath(':build:com.mbeddr:install').dependsOn install_sl_all_nativelibs
 
 publishing {
     publications {

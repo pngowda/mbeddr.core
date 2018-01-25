@@ -3,11 +3,19 @@
   <component name="ProjectLibraryManager">
     <option name="libraries">
       <map>
-        <entry key="mbeddr">
+        <entry key="code">
           <value>
             <Library>
-              <option name="name" value="mbeddr" />
-              <option name="path" value="${mbeddr.github.core.home}" />
+              <option name="name" value="code" />
+              <option name="path" value="${mbeddr.github.core.home}/code/languages" />
+            </Library>
+          </value>
+        </entry>
+        <entry key="plugins">
+          <value>
+            <Library>
+              <option name="name" value="plugins" />
+              <option name="path" value="${mbeddr.github.core.home}/code/plugins" />
             </Library>
           </value>
         </entry>

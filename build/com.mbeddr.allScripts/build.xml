@@ -8,14 +8,12 @@
   <property name="mbeddr.github.core.home" location="${basedir}/../.." />
   <property name="mbeddr.build" location="${mbeddr.github.core.home}/code/languages/com.mbeddr.build" />
   <property name="spawner.artifacts" location="${basedir}/../com.mbeddr.spawner/build/artifacts/com.mbeddr.spawner.build" />
-  <property name="de.itemis.inc.artifacts" location="${artifacts.root}/de.itemis.mps.build" />
   <property name="platform.sl-all" location="${artifacts.root}/mps-sl-all" />
   <property name="major.version" value="0" />
   <property name="minor.version" value="8" />
   <property name="build" value="0000" />
   <property name="mbeddr.version" value="${major.version}.${minor.version}-${build}" />
   <property name="artifacts.mps" location="${mps.home}" />
-  <property name="artifacts.de.itemis.mps.build" location="${de.itemis.inc.artifacts}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property name="mps.build.number" value="${import.mps.mps.build.number}" />
   <property name="mps.date" value="${import.mps.mps.date}" />
@@ -38,7 +36,7 @@
     <mkdir dir="${build.layout}/mbeddr.allScripts" />
     <mkdir dir="${build.layout}/mbeddr.allScripts/META-INF" />
     <echoxml file="${build.layout}/mbeddr.allScripts/META-INF/plugin.xml">
-      <idea-plugin version="2" xmlns:xi="http://www.w3.org/2001/XInclude">
+      <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
         <id>com.mbeddr.allScripts</id>
         <name>com.mbeddr.allScripts</name>
         <version>${mbeddr.version}</version>
@@ -48,7 +46,6 @@
         <depends>jetbrains.mps.execution.api</depends>
         <depends>jetbrains.mps.execution.languages</depends>
         <depends>jetbrains.mps.execution.configurations</depends>
-        <depends>de.itemis.mps.build.icremental</depends>
         
         <extensions defaultExtensionNs="com.intellij">
           <mps.LanguageLibrary dir="/languages" />
@@ -361,6 +358,38 @@
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-com.mbeddr.analyses.dev.build-models" prefix="module/models" />
     </jar>
     <mkdir dir="${build.layout}/mbeddr.allScripts/languages" />
+    <mkdir dir="${build.layout}/mbeddr.allScripts/languages/com.mbeddr.xmodel" />
+    <mkdir dir="${build.tmp}/default/com.mbeddr.xmodel.build.jar" />
+    <mkdir dir="${build.tmp}/default/com.mbeddr.xmodel.build.jar/META-INF" />
+    <echoxml file="${build.tmp}/default/com.mbeddr.xmodel.build.jar/META-INF/module.xml">
+      <module namespace="com.mbeddr.xmodel.build" type="solution" uuid="f784c90b-1ff6-440a-9cf3-266de03c53ec">
+        <dependencies />
+        <classpath>
+          <entry path="." />
+        </classpath>
+        <sources jar="com.mbeddr.xmodel.build-src.jar" descriptor="com.mbeddr.xmodel.build.msd" />
+      </module>
+    </echoxml>
+    <jar destfile="${build.layout}/mbeddr.allScripts/languages/com.mbeddr.xmodel/com.mbeddr.xmodel.build.jar" duplicate="preserve">
+      <fileset dir="${build.tmp}/java/out/com.mbeddr.xmodel.build" />
+      <fileset dir="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.xmodel.build" includes="icons/**, resources/**" />
+      <fileset dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
+      <fileset dir="${build.tmp}/default/com.mbeddr.xmodel.build.jar" />
+    </jar>
+    <copyModels todir="${build.tmp}/customProcessors/copyModels/solutions-com.mbeddr.xmodel.build-models">
+      <fileset dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/models" includes="**/*.mps, **/*.metadata, **/*.history, **/*.mpsr, **/.model" />
+    </copyModels>
+    <jar destfile="${build.layout}/mbeddr.allScripts/languages/com.mbeddr.xmodel/com.mbeddr.xmodel.build-src.jar" duplicate="preserve">
+      <fileset dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen">
+        <exclude name="**/trace.info" />
+        <exclude name="**/exports" />
+        <exclude name="**/checkpoints" />
+        <exclude name="**/*.mps" />
+      </fileset>
+      <zipfileset file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.xmodel.build/com.mbeddr.xmodel.build.msd" prefix="module" />
+      <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-com.mbeddr.xmodel.build-models" prefix="module/models" />
+    </jar>
+    <mkdir dir="${build.layout}/mbeddr.allScripts/languages" />
     <mkdir dir="${build.layout}/mbeddr.allScripts/languages/mbeddr.allScripts" />
     <mkdir dir="${build.tmp}/default/com.mbeddr.allScripts.jar" />
     <mkdir dir="${build.tmp}/default/com.mbeddr.allScripts.jar/META-INF" />
@@ -593,7 +622,7 @@
     <delete dir="${build.layout}" />
   </target>
   
-  <target name="compileJava" depends="java.compile.com.mbeddr.allScripts, java.compile.com.mbeddr.debugger.testing.build.dev.build, java.compile.com.mbeddr.core.tests.build, java.compile.com.mbeddr.core.tests.performance.build, java.compile.com.mbeddr.debugger.tests.dev.build, java.compile.com.mbeddr.cc.tests.dev.build, java.compile.com.mbeddr.ext.tests.build, java.compile.com.mbeddr.analyses.tests.dev.build, java.compile.com.mbeddr.tutorial.dev.build, java.compile.com.mbeddr.allInOne, java.compile.com.mbeddr.platform, java.compile.jetbrains.mps.minimal, java.compile.com.mbeddr.rcp, java.compile.com.mbeddr.build, java.compile.de.slisson.mps.all.build, java.compile.com.mbeddr.mpsutil.inca" />
+  <target name="compileJava" depends="java.compile.com.mbeddr.allScripts, java.compile.com.mbeddr.debugger.testing.build.dev.build, java.compile.com.mbeddr.core.tests.build, java.compile.com.mbeddr.core.tests.performance.build, java.compile.com.mbeddr.debugger.tests.dev.build, java.compile.com.mbeddr.cc.tests.dev.build, java.compile.com.mbeddr.ext.tests.build, java.compile.com.mbeddr.analyses.tests.dev.build, java.compile.com.mbeddr.tutorial.dev.build, java.compile.com.mbeddr.allInOne, java.compile.com.mbeddr.platform, java.compile.jetbrains.mps.minimal, java.compile.com.mbeddr.rcp, java.compile.com.mbeddr.build, java.compile.de.slisson.mps.all.build, java.compile.com.mbeddr.mpsutil.inca, java.compile.com.mbeddr.xmodel.build" />
   
   <target name="processResources" />
   
@@ -606,7 +635,6 @@
   <target name="generate" depends="declare-mps-tasks, fetchDependencies">
     <echo message="generating" />
     <generate strictMode="true" parallelMode="true" parallelThreads="4" useInplaceTransform="true" hideWarnings="false" createStaticRefs="true" fork="true" targetJavaVersion="1.8">
-      <plugin path="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental" />
       <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core/META-INF/plugin.xml/../.." />
       <plugin path="${artifacts.mps}/plugins/mps-debugger-api" />
@@ -615,9 +643,6 @@
       <plugin path="${artifacts.mps}/plugins/mps-execution-configurations" />
       <plugin path="${artifacts.mps}/plugins/mps-execution-languages" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.incremental.io.jar" />
-      <library file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.incremental.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.classifiers.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.closures.jar" />
@@ -664,7 +689,9 @@
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.refactoring.participant.jar" />
       <library file="${artifacts.mps}/languages/make/jetbrains.mps.make.reduced.jar" />
       <library file="${artifacts.mps}/languages/make/jetbrains.mps.tool.gentest.jar" />
+      <library file="${artifacts.mps}/languages/text/jetbrains.mps.lang.text.jar" />
       <library file="${artifacts.mps}/languages/util/jetbrains.mps.execution.util.jar" />
+      <library file="${artifacts.mps}/languages/util/jetbrains.mps.lang.makeup.jar" />
       <library file="${artifacts.mps}/languages/xml/jetbrains.mps.core.xml.jar" />
       <library file="${artifacts.mps}/lib/mps-behavior-api.jar" />
       <library file="${artifacts.mps}/lib/mps-closures.jar" />
@@ -722,6 +749,7 @@
         <module file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.platform/com.mbeddr.platform.msd" />
         <module file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.rcp/com.mbeddr.rcp.msd" />
         <module file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.build.build/com.mbeddr.build.build.msd" />
+        <module file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/com.mbeddr.xmodel.build/com.mbeddr.xmodel.build.msd" />
         <module file="${mbeddr.github.core.home}/code/plugins/sl-all/solutions/de.slisson.mps.all.build/de.slisson.mps.all.build.msd" />
         <module file="${mbeddr.github.core.home}/code/languages/com.mbeddr.build/solutions/jetbrains.mps.minimal/jetbrains.mps.minimal.msd" />
       </chunk>
@@ -733,7 +761,6 @@
       <macro name="mbeddr.github.core.home" path="${mbeddr.github.core.home}" />
       <macro name="mbeddr.build" path="${mbeddr.build}" />
       <macro name="spawner.artifacts" path="${spawner.artifacts}" />
-      <macro name="de.itemis.inc.artifacts" path="${de.itemis.inc.artifacts}" />
       <macro name="platform.sl-all" path="${platform.sl-all}" />
     </generate>
   </target>
@@ -773,7 +800,6 @@
         <fileset file="${artifacts.mps}/lib/jdom.jar" />
         <fileset file="${artifacts.mps}/lib/trove4j.jar" />
         <fileset file="${artifacts.mps}/lib/ecj-4.6.2.jar" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
       </classpath>
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.allScripts">
@@ -981,10 +1007,7 @@
       <src>
         <path location="${mbeddr.build}/solutions/com.mbeddr.platform/source_gen" />
       </src>
-      <classpath>
-        <pathelement path="${build.tmp}/java/out/de.slisson.mps.all.build" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
-      </classpath>
+      <classpath path="${build.tmp}/java/out/de.slisson.mps.all.build" />
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.platform">
       <fileset dir="${mbeddr.build}/solutions/com.mbeddr.platform/source_gen">
@@ -1042,7 +1065,6 @@
       <classpath>
         <pathelement path="${build.tmp}/java/out/com.mbeddr.platform" />
         <pathelement path="${build.tmp}/java/out/de.slisson.mps.all.build" />
-        <fileset file="${artifacts.de.itemis.mps.build}/de.itemis.mps.build.icremental/languages/de.itemis.mps.build.icremental/de.itemis.mps.build.build.jar" />
       </classpath>
     </javac>
     <copy todir="${build.tmp}/java/out/com.mbeddr.build">
@@ -1091,6 +1113,27 @@
     </copy>
   </target>
   
+  <target name="java.compile.com.mbeddr.xmodel.build" depends="java.compile.com.mbeddr.build, java.compile.com.mbeddr.core.tests.build, java.compile.com.mbeddr.platform">
+    <mkdir dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen" />
+    <mkdir dir="${build.tmp}/java/out/com.mbeddr.xmodel.build" />
+    <javac destdir="${build.tmp}/java/out/com.mbeddr.xmodel.build" fork="false" encoding="utf8" includeantruntime="false" debug="true" source="1.8" target="1.8">
+      <compilerarg value="-Xlint:none" />
+      <src>
+        <path location="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen" />
+      </src>
+      <classpath>
+        <pathelement path="${build.tmp}/java/out/com.mbeddr.build" />
+        <pathelement path="${build.tmp}/java/out/com.mbeddr.core.tests.build" />
+        <pathelement path="${build.tmp}/java/out/com.mbeddr.platform" />
+      </classpath>
+    </javac>
+    <copy todir="${build.tmp}/java/out/com.mbeddr.xmodel.build">
+      <fileset dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen">
+        <include name="**/*.info" />
+      </fileset>
+    </copy>
+  </target>
+  
   <target name="cleanSources">
     <delete dir="${mbeddr.build}/solutions/com.mbeddr.allInOne/source_gen" />
     <delete dir="${mbeddr.build}/solutions/com.mbeddr.allScripts/source_gen" />
@@ -1106,6 +1149,7 @@
     <delete dir="${mbeddr.build}/solutions/com.mbeddr.platform/source_gen" />
     <delete dir="${mbeddr.build}/solutions/com.mbeddr.rcp/source_gen" />
     <delete dir="${mbeddr.build}/solutions/com.mbeddr.build.build/source_gen" />
+    <delete dir="${mbeddr.build}/solutions/com.mbeddr.xmodel.build/source_gen" />
     <delete dir="${mbeddr.github.core.home}/code/plugins/sl-all/solutions/de.slisson.mps.all.build/source_gen" />
     <delete dir="${mbeddr.build}/solutions/jetbrains.mps.minimal/source_gen" />
   </target>

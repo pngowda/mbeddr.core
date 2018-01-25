@@ -3,14 +3,6 @@
   <component name="ProjectLibraryManager">
     <option name="libraries">
       <map>
-        <entry key="de.itemis.mps.build">
-          <value>
-            <Library>
-              <option name="name" value="de.itemis.mps.build" />
-              <option name="path" value="${mbeddr.github.core.home}/artifacts/de.itemis.mps.build" />
-            </Library>
-          </value>
-        </entry>
         <entry key="mbeddr.core">
           <value>
             <Library>
