@@ -4,7 +4,7 @@
   <property name="env.JAVA_HOME" value="${java.home}/.." />
   <property name="jdk.home" value="${env.JAVA_HOME}" />
   <property name="mps_home" location="${mps.home}" />
-  <echo message="${artifacts.mps}"/>
+
   <path id="path.mps.ant.path">
 	<pathelement location="${mps.home}/lib/ant/lib/ant-mps.jar" />
     <pathelement location="${mps.home}/lib/jdom.jar" />
@@ -12,7 +12,7 @@
   </path>
   
   <target name="migrateTask" depends="declare-mps-tasks">
-  	<record name="./mbeddr/tmp/allProject/migration.log" action="start"/>
+  	<record name="migration.log" action="start"/>
 	<echo message="${mps.home}"/>
 	<migrate project ="./mbeddr/tmp/allProject">
 	<repository>
@@ -21,7 +21,7 @@
 		<modules dir="${mps.home}/lib"/>
 	</repository>
 	</migrate>
-	<record name="./mbeddr/tmp/allProject/migration.log" action="stop"/>
+	<record name="migration.log" action="stop"/>
   </target>
   <target name="declare-mps-tasks">
     <taskdef resource="jetbrains/mps/build/ant/antlib.xml" classpathref="path.mps.ant.path" />
