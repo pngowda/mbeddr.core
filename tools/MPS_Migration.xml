@@ -12,7 +12,7 @@
   </path>
   
   <target name="migrateTask" depends="declare-mps-tasks">
-  	<record name="migration.log" action="start"/>
+  	<record name="./mbeddr/tmp/allProject/migration.log" action="start"/>
 	<echo message="${mps.home}"/>
 	<migrate project ="./mbeddr/tmp/allProject">
 	<repository>
@@ -21,7 +21,7 @@
 		<modules dir="${artifacts.mps}/lib"/>
 	</repository>
 	</migrate>
-	<record name="migration.log" action="stop"/>
+	<record name="./mbeddr/tmp/allProject/migration.log" action="stop"/>
   </target>
   <target name="declare-mps-tasks">
     <taskdef resource="jetbrains/mps/build/ant/antlib.xml" classpathref="path.mps.ant.path" />
